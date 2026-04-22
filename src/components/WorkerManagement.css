@@ -1,0 +1,272 @@
+.worker-management {
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 12px;
+}
+
+.worker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.worker-header h2 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.worker-header p {
+    margin: 5px 0 0;
+    color: var(--text-secondary);
+}
+
+.worker-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.worker-tabs .tab {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    color: var(--text-secondary);
+}
+
+.worker-tabs .tab.active {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+
+.workers-table, .attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.workers-table th, .attendance-table th {
+    background: var(--table-header-bg);
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.workers-table td, .attendance-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.workers-table tr:hover, .attendance-table tr:hover {
+    background: var(--table-row-hover);
+}
+
+.btn-small {
+    padding: 4px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-checkin {
+    padding: 6px 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-checkout {
+    padding: 6px 12px;
+    background: #fd7e14;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.completed-badge {
+    color: #28a745;
+    font-size: 12px;
+}
+
+.attendance-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.date-input {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.attendance-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.attendance-stats .stat-card {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.attendance-stats .stat-card span {
+    display: block;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.attendance-stats .stat-card strong {
+    font-size: 24px;
+    color: var(--text-primary);
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.summary-card {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+}
+
+.summary-card span {
+    display: block;
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.summary-card strong {
+    font-size: 28px;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.active {
+    background: #28a745;
+    color: white;
+}
+
+.status-badge.inactive {
+    background: #dc3545;
+    color: white;
+}
+
+.status-badge.present {
+    background: #28a745;
+    color: white;
+}
+
+.status-badge.late {
+    background: #fd7e14;
+    color: white;
+}
+
+.status-badge.absent {
+    background: #dc3545;
+    color: white;
+}
+
+.worker-modal {
+    max-width: 700px;
+    width: 90%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    color: var(--text-secondary);
+}
+
+.empty-state span {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .attendance-stats {
+        flex-direction: column;
+    }
+    
+    .workers-table, .attendance-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
