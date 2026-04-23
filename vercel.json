@@ -1,3 +1,5 @@
+
+
 {
   "rewrites": [
     {
@@ -5,4 +7,4 @@
       "destination": "/index.html"
     }
   ]
-}
+}" " 
