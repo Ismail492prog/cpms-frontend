@@ -15,6 +15,7 @@ import AdminBankPayments from './pages/AdminBankPayments';
 import AuditLog from './pages/AuditLog';
 import Alerts from './pages/Alerts';
 import Profile from './pages/Profile';
+import { HashRouter } from 'react-router-dom';
 
 
 function App() {
