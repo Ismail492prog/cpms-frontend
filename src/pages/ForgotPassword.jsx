@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     setLoading(true);
     
     try {
-      await axios.post('http://localhost:8080/api/auth/forgot-password', { email });
+      await axios.post('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/auth/forgot-password', { email });
       setSubmitted(true);
       toast.success('Password reset email sent!');
     } catch (error) {

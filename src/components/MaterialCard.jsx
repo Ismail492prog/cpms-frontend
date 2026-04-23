@@ -50,7 +50,7 @@ const MaterialCard = ({ material }) => {
     setSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8080/api/materials/${material.id}/payments`, {
+      const response = await fetch(`const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/materials/${material.id}/payments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

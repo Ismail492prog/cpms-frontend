@@ -8,7 +8,7 @@ const useWebSocket = () => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS('const API_BASE_URL = https://cpms-backend-production.up.railway.app/ws');
     const client = new Client({
       webSocketFactory: () => socket,
       debug: (str) => console.log(str),

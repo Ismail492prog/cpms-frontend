@@ -14,7 +14,7 @@ const Navbar = () => {
     const fetchUserRole = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/api/auth/me', {
+        const response = await axios.get('https://cpms-backend-production.up.railway.app/api/auth/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         setUserRole(response.data.role || 'USER');

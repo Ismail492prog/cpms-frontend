@@ -25,8 +25,8 @@ const SupplierManagement = () => {
     const fetchSuppliers = useCallback(async () => {
         try {
             const url = filterCategory === 'all' 
-                ? 'http://localhost:8080/api/suppliers'
-                : `http://localhost:8080/api/suppliers/category/${filterCategory}`;
+                ? 'https://cpms-backend-production.up.railway.app/api/suppliers'
+                : `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/suppliers/category/${filterCategory}`;
             const response = await axios.get(url, {
                 headers: getAuthHeader()
             });
@@ -75,7 +75,7 @@ const SupplierManagement = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8080/api/suppliers', formData, {
+            const response = await axios.post('https://cpms-backend-production.up.railway.app/api/suppliers', formData, {
                 headers: getAuthHeader()
             });
             if (response.data.success) {
@@ -93,7 +93,7 @@ const SupplierManagement = () => {
     const handleDeleteSupplier = async (id, name) => {
         if (window.confirm(`Are you sure you want to delete "${name}"?`)) {
             try {
-                const response = await axios.delete(`http://localhost:8080/api/suppliers/${id}`, {
+                const response = await axios.delete(`const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/suppliers/${id}`, {
                     headers: getAuthHeader()
                 });
                 if (response.data.success) {

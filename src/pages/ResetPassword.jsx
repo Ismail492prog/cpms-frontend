@@ -23,7 +23,7 @@ const ResetPassword = () => {
       }
       
       try {
-        const response = await axios.get(`http://localhost:8080/api/auth/validate-reset-token?token=${token}`);
+        const response = await axios.get(`const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/auth/validate-reset-token?token=${token}`);
         setValidToken(response.data.success);
       } catch {
         setValidToken(false);
@@ -57,7 +57,7 @@ const ResetPassword = () => {
     setLoading(true);
     
     try {
-      await axios.post('http://localhost:8080/api/auth/reset-password', {
+      await axios.post('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/auth/reset-password', {
         token,
         newPassword: password
       });

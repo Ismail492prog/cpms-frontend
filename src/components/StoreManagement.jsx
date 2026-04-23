@@ -210,7 +210,7 @@ const StoreManagement = ({ projectId }) => {
         setLoading(true);
         try {
             await axios.post(
-                `http://localhost:8080/api/store/materials/${selectedMaterial}/wastage`,
+                `'https://cpms-backend-production.up.railway.app';/api/store/materials/${selectedMaterial}/wastage`,
                 null,
                 {
                     params: { 

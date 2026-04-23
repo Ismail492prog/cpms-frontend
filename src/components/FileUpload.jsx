@@ -39,7 +39,7 @@ const FileUpload = ({ paymentId, onUploadComplete, buttonText = 'Upload Receipt'
     setUploading(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://localhost:8080/api/documents/upload/receipt/${paymentId}`, formData, {
+      await axios.post(`const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/documents/upload/receipt/${paymentId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
