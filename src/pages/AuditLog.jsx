@@ -21,7 +21,7 @@ const AuditLog = () => {
   const fetchUserRole = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8080/api/auth/me', {
+      const response = await axios.get('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/auth/me', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const role = response.data.role || 'USER';
@@ -45,7 +45,7 @@ const AuditLog = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:8080/api/audit-logs?page=${page}&size=20`, {
+      const response = await axios.get(`const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/audit-logs?page=${page}&size=20`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setLogs(response.data.content || []);
@@ -75,7 +75,7 @@ const AuditLog = () => {
   const exportLogs = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:8080/api/audit-logs/export', {
+      const response = await axios.get('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/audit-logs/export', {
         headers: { 'Authorization': `Bearer ${token}` },
         responseType: 'blob'
       });
@@ -107,7 +107,7 @@ const AuditLog = () => {
 
   const applyFilters = () => {
     // Apply date filters
-    let url = `http://localhost:8080/api/audit-logs?page=0&size=20`;
+    let url = `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/audit-logs?page=0&size=20`;
     if (startDate) {
       url += `&startDate=${startDate}`;
     }

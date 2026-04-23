@@ -26,7 +26,7 @@ const StoreManagement = ({ projectId }) => {
     const fetchMaterials = useCallback(async () => {
         try {
             const response = await axios.get(
-                `http://localhost:8080/api/projects/${projectId}/materials`,
+                `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/projects/${projectId}/materials`,
                 { headers: getAuthHeader() }
             );
             const materialsData = response.data.materials || [];
@@ -41,7 +41,7 @@ const StoreManagement = ({ projectId }) => {
     // Fetch all suppliers
     const fetchSuppliers = useCallback(async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/suppliers', {
+            const response = await axios.get('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/suppliers', {
                 headers: getAuthHeader()
             });
             if (response.data.success) {
@@ -59,7 +59,7 @@ const StoreManagement = ({ projectId }) => {
             for (const material of materialsList) {
                 try {
                     const response = await axios.get(
-                        `http://localhost:8080/api/store/materials/${material.id}/stock?projectId=${projectId}`,
+                        `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/store/materials/${material.id}/stock?projectId=${projectId}`,
                         { headers: getAuthHeader() }
                     );
                     stockMap[material.id] = response.data.currentStock || 0;
@@ -128,7 +128,7 @@ const StoreManagement = ({ projectId }) => {
         setLoading(true);
         try {
             await axios.post(
-                `http://localhost:8080/api/store/materials/${selectedMaterial}/receive`,
+                `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/store/materials/${selectedMaterial}/receive`,
                 null,
                 {
                     params: { 
@@ -170,7 +170,7 @@ const StoreManagement = ({ projectId }) => {
         setLoading(true);
         try {
             await axios.post(
-                `http://localhost:8080/api/store/materials/${selectedMaterial}/issue`,
+                `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/store/materials/${selectedMaterial}/issue`,
                 null,
                 {
                     params: { 
