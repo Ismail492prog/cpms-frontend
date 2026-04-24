@@ -59,7 +59,6 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Fixed useEffect to avoid ESLint warning
   useEffect(() => {
     const loadData = async () => {
       await fetchProjects();
@@ -177,13 +176,11 @@ const Dashboard = () => {
     navigate(`/projects/${projectId}`);
   };
 
-  // Reset selected project when changing tabs
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setSelectedProject(null);
   };
 
-  // Render projects tab content
   const renderProjectsTab = () => (
     <>
       <div className="dashboard-header">
@@ -329,7 +326,6 @@ const Dashboard = () => {
     </>
   );
 
-  // Render store management tab content
   const renderStoreTab = () => (
     <>
       <div className="dashboard-header">
@@ -391,7 +387,6 @@ const Dashboard = () => {
     </>
   );
 
-  // Render worker management tab content
   const renderWorkersTab = () => (
     <>
       <div className="dashboard-header">
@@ -456,7 +451,6 @@ const Dashboard = () => {
     </>
   );
 
-  // Render supplier management tab content
   const renderSuppliersTab = () => (
     <>
       <div className="dashboard-header">
@@ -474,7 +468,6 @@ const Dashboard = () => {
       <Navbar />
       
       <div className="dashboard-layout">
-        {/* Sidebar Navigation */}
         <div className="dashboard-sidebar">
           <div className="sidebar-nav">
             <button 
@@ -508,7 +501,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Main Content */}
         <main className="dashboard-content">
           {activeTab === 'projects' && renderProjectsTab()}
           {activeTab === 'store' && renderStoreTab()}
@@ -517,7 +509,6 @@ const Dashboard = () => {
         </main>
       </div>
 
-      {/* Create Project Modal */}
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -596,7 +587,6 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Report Modal */}
       {showReportModal && reportData && selectedProject && (
         <div className="modal-overlay" onClick={() => setShowReportModal(false)}>
           <div className="modal-content report-modal" onClick={(e) => e.stopPropagation()}>
