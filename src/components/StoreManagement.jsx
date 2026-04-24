@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const API_BASE_URL = 'https://cpms-backend-production.up.railway.app';
+
 const StoreManagement = ({ projectId }) => {
     const [materials, setMaterials] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
@@ -26,7 +28,7 @@ const StoreManagement = ({ projectId }) => {
     const fetchMaterials = useCallback(async () => {
         try {
             const response = await axios.get(
-                `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/projects/${projectId}/materials`,
+                `${API_BASE_URL}/api/projects/${projectId}/materials`,
                 { headers: getAuthHeader() }
             );
             const materialsData = response.data.materials || [];
@@ -41,7 +43,7 @@ const StoreManagement = ({ projectId }) => {
     // Fetch all suppliers
     const fetchSuppliers = useCallback(async () => {
         try {
-            const response = await axios.get('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/suppliers', {
+            const response = await axios.get(`${API_BASE_URL}/api/suppliers`, {
                 headers: getAuthHeader()
             });
             if (response.data.success) {
@@ -52,14 +54,14 @@ const StoreManagement = ({ projectId }) => {
         }
     }, [getAuthHeader]);
 
-    // Fetch stock levels only (no prices)
+    // Fetch stock levels
     const fetchStockLevels = useCallback(async (materialsList) => {
         try {
             const stockMap = {};
             for (const material of materialsList) {
                 try {
                     const response = await axios.get(
-                        `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/store/materials/${material.id}/stock?projectId=${projectId}`,
+                        `${API_BASE_URL}/api/store/materials/${material.id}/stock?projectId=${projectId}`,
                         { headers: getAuthHeader() }
                     );
                     stockMap[material.id] = response.data.currentStock || 0;
@@ -73,7 +75,7 @@ const StoreManagement = ({ projectId }) => {
         }
     }, [projectId, getAuthHeader]);
 
-    // Initialize data
+    // Initialize data - runs once on mount
     useEffect(() => {
         const init = async () => {
             setLoading(true);
@@ -104,7 +106,6 @@ const StoreManagement = ({ projectId }) => {
         await fetchSuppliers();
     }, [fetchMaterials, fetchStockLevels, fetchSuppliers]);
 
-    // Auto-fill unit price when material is selected (optional)
     const handleMaterialSelect = (materialId) => {
         setSelectedMaterial(materialId);
         const material = materials.find(m => m.id === materialId);
@@ -115,7 +116,6 @@ const StoreManagement = ({ projectId }) => {
         }
     };
 
-    // Receive stock with supplier selection
     const handleReceiveStock = async () => {
         if (!selectedMaterial || !quantity) {
             toast.error('Please select material and enter quantity');
@@ -128,7 +128,7 @@ const StoreManagement = ({ projectId }) => {
         setLoading(true);
         try {
             await axios.post(
-                `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/store/materials/${selectedMaterial}/receive`,
+                `${API_BASE_URL}/api/store/materials/${selectedMaterial}/receive`,
                 null,
                 {
                     params: { 
@@ -170,7 +170,7 @@ const StoreManagement = ({ projectId }) => {
         setLoading(true);
         try {
             await axios.post(
-                `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/store/materials/${selectedMaterial}/issue`,
+                `${API_BASE_URL}/api/store/materials/${selectedMaterial}/issue`,
                 null,
                 {
                     params: { 
@@ -210,7 +210,7 @@ const StoreManagement = ({ projectId }) => {
         setLoading(true);
         try {
             await axios.post(
-                `'https://cpms-backend-production.up.railway.app';/api/store/materials/${selectedMaterial}/wastage`,
+                `${API_BASE_URL}/api/store/materials/${selectedMaterial}/wastage`,
                 null,
                 {
                     params: { 
@@ -231,23 +231,16 @@ const StoreManagement = ({ projectId }) => {
         }
     };
 
-    const getSelectedMaterialDetails = () => {
-        return materials.find(m => m.id === selectedMaterial);
-    };
-
+    const getSelectedMaterialDetails = () => materials.find(m => m.id === selectedMaterial);
     const currentStock = selectedMaterial ? (stockLevels[selectedMaterial] || 0) : 0;
     const selectedMaterialDetails = getSelectedMaterialDetails();
 
-    // Group suppliers by category
     const hardwareStores = suppliers.filter(s => s.category === 'HARDWARE');
     const manufacturers = suppliers.filter(s => s.category === 'MANUFACTURER');
     const wholesalers = suppliers.filter(s => s.category === 'WHOLESALER');
 
-    // Calculate summary stats - quantity only
     const totalMaterials = materials.length;
-    const totalStockQuantity = materials.reduce((sum, m) => {
-        return sum + (stockLevels[m.id] || 0);
-    }, 0);
+    const totalStockQuantity = materials.reduce((sum, m) => sum + (stockLevels[m.id] || 0), 0);
     const lowStockItems = materials.filter(m => {
         const stock = stockLevels[m.id] || 0;
         const reorderLevel = m.reorderLevel || 50;
@@ -307,79 +300,40 @@ const StoreManagement = ({ projectId }) => {
             </div>
 
             <div className="store-tabs">
-                <button 
-                    type="button"
-                    className={`tab ${activeTab === 'receive' ? 'active' : ''}`} 
-                    onClick={() => setActiveTab('receive')}
-                >
-                    📥 Receive Stock
-                </button>
-                <button 
-                    type="button"
-                    className={`tab ${activeTab === 'issue' ? 'active' : ''}`} 
-                    onClick={() => setActiveTab('issue')}
-                >
-                    📤 Issue Stock
-                </button>
-                <button 
-                    type="button"
-                    className={`tab ${activeTab === 'wastage' ? 'active' : ''}`} 
-                    onClick={() => setActiveTab('wastage')}
-                >
-                    🗑️ Record Wastage
-                </button>
-                <button 
-                    type="button"
-                    className={`tab ${activeTab === 'inventory' ? 'active' : ''}`} 
-                    onClick={() => setActiveTab('inventory')}
-                >
-                    📋 Current Inventory
-                </button>
+                <button className={`tab ${activeTab === 'receive' ? 'active' : ''}`} onClick={() => setActiveTab('receive')}>📥 Receive Stock</button>
+                <button className={`tab ${activeTab === 'issue' ? 'active' : ''}`} onClick={() => setActiveTab('issue')}>📤 Issue Stock</button>
+                <button className={`tab ${activeTab === 'wastage' ? 'active' : ''}`} onClick={() => setActiveTab('wastage')}>🗑️ Record Wastage</button>
+                <button className={`tab ${activeTab === 'inventory' ? 'active' : ''}`} onClick={() => setActiveTab('inventory')}>📋 Current Inventory</button>
             </div>
 
             <div className="store-content">
                 {activeTab === 'receive' && (
                     <div className="store-form">
                         <h3>Receive Materials from Supplier</h3>
-                        
-                        <select 
-                            value={selectedMaterial || ''} 
-                            onChange={(e) => handleMaterialSelect(Number(e.target.value))}
-                        >
+                        <select value={selectedMaterial || ''} onChange={(e) => handleMaterialSelect(Number(e.target.value))}>
                             <option value="">-- Select Material --</option>
                             {materials.map(m => (
-                                <option key={m.id} value={m.id}>
-                                    {m.name} - Current Stock: {stockLevels[m.id] || 0} {m.unitOfMeasurement || 'units'}
-                                </option>
+                                <option key={m.id} value={m.id}>{m.name} - Current Stock: {stockLevels[m.id] || 0} {m.unitOfMeasurement || 'units'}</option>
                             ))}
                         </select>
                         
-                        <select 
-                            value={selectedSupplier} 
-                            onChange={(e) => setSelectedSupplier(e.target.value)}
-                        >
+                        <select value={selectedSupplier} onChange={(e) => setSelectedSupplier(e.target.value)}>
                             <option value="">-- Select Supplier --</option>
                             {hardwareStores.length > 0 && (
                                 <optgroup label="🏪 Hardware Stores">
                                     {hardwareStores.map(s => (
-                                        <option key={s.id} value={s.id}>
-                                            {s.name} {s.physicalLocation ? `- ${s.physicalLocation}` : ''}
-                                        </option>
+                                        <option key={s.id} value={s.id}>{s.name} {s.physicalLocation ? `- ${s.physicalLocation}` : ''}</option>
                                     ))}
                                 </optgroup>
                             )}
                             {manufacturers.length > 0 && (
                                 <optgroup label="🏭 Manufacturers">
-                                    {manufacturers.map(s => (
-                                        <option key={s.id} value={s.id}>{s.name}</option>
-                                    ))}
+                                    {manufacturers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                                 </optgroup>
                             )}
                             {wholesalers.length > 0 && (
                                 <optgroup label="📦 Wholesalers">
-                                    {wholesalers.map(s => (
-                                        <option key={s.id} value={s.id}>{s.name}</option>
-                                    ))}
+                                    {wholesalers.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                                 </optgroup>
                             )}
                         </select>
@@ -391,49 +345,21 @@ const StoreManagement = ({ projectId }) => {
                             </div>
                         )}
                         
-                        <input 
-                            type="number" 
-                            placeholder="Quantity to Receive" 
-                            value={quantity} 
-                            onChange={(e) => setQuantity(e.target.value)} 
-                        />
-                        <input 
-                            type="number" 
-                            placeholder="Unit Price (KES) - Optional" 
-                            value={unitPrice} 
-                            onChange={(e) => setUnitPrice(e.target.value)} 
-                        />
-                        <input 
-                            type="text" 
-                            placeholder="Reference Number (PO/Invoice #)" 
-                            value={referenceNumber} 
-                            onChange={(e) => setReferenceNumber(e.target.value)} 
-                        />
-                        <textarea 
-                            placeholder="Notes (e.g., delivery date, quality remarks)" 
-                            value={notes} 
-                            onChange={(e) => setNotes(e.target.value)} 
-                            rows="3"
-                        />
-                        <button type="button" onClick={handleReceiveStock} disabled={loading}>
-                            {loading ? 'Processing...' : '📥 Receive Stock'}
-                        </button>
+                        <input type="number" placeholder="Quantity to Receive" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                        <input type="number" placeholder="Unit Price (KES) - Optional" value={unitPrice} onChange={(e) => setUnitPrice(e.target.value)} />
+                        <input type="text" placeholder="Reference Number (PO/Invoice #)" value={referenceNumber} onChange={(e) => setReferenceNumber(e.target.value)} />
+                        <textarea placeholder="Notes (e.g., delivery date, quality remarks)" value={notes} onChange={(e) => setNotes(e.target.value)} rows="3" />
+                        <button onClick={handleReceiveStock} disabled={loading}>{loading ? 'Processing...' : '📥 Receive Stock'}</button>
                     </div>
                 )}
 
                 {activeTab === 'issue' && (
                     <div className="store-form">
                         <h3>Issue Materials to Workers</h3>
-                        
-                        <select 
-                            value={selectedMaterial || ''} 
-                            onChange={(e) => setSelectedMaterial(Number(e.target.value))}
-                        >
+                        <select value={selectedMaterial || ''} onChange={(e) => setSelectedMaterial(Number(e.target.value))}>
                             <option value="">-- Select Material --</option>
                             {materials.map(m => (
-                                <option key={m.id} value={m.id}>
-                                    {m.name} - Available: {stockLevels[m.id] || 0} {m.unitOfMeasurement || 'units'}
-                                </option>
+                                <option key={m.id} value={m.id}>{m.name} - Available: {stockLevels[m.id] || 0} {m.unitOfMeasurement || 'units'}</option>
                             ))}
                         </select>
                         
@@ -443,49 +369,21 @@ const StoreManagement = ({ projectId }) => {
                             </div>
                         )}
                         
-                        <input 
-                            type="number" 
-                            placeholder="Quantity to Issue" 
-                            value={quantity} 
-                            onChange={(e) => setQuantity(e.target.value)} 
-                        />
-                        <input 
-                            type="text" 
-                            placeholder="Issued To (Worker Name)" 
-                            value={issuedTo} 
-                            onChange={(e) => setIssuedTo(e.target.value)} 
-                        />
-                        <input 
-                            type="text" 
-                            placeholder="Location (e.g., Foundation, Roofing, Flooring)" 
-                            value={location} 
-                            onChange={(e) => setLocation(e.target.value)} 
-                        />
-                        <textarea 
-                            placeholder="Notes" 
-                            value={notes} 
-                            onChange={(e) => setNotes(e.target.value)} 
-                            rows="3"
-                        />
-                        <button type="button" onClick={handleIssueStock} disabled={loading}>
-                            {loading ? 'Processing...' : '📤 Issue Stock'}
-                        </button>
+                        <input type="number" placeholder="Quantity to Issue" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                        <input type="text" placeholder="Issued To (Worker Name)" value={issuedTo} onChange={(e) => setIssuedTo(e.target.value)} />
+                        <input type="text" placeholder="Location (e.g., Foundation, Roofing, Flooring)" value={location} onChange={(e) => setLocation(e.target.value)} />
+                        <textarea placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} rows="3" />
+                        <button onClick={handleIssueStock} disabled={loading}>{loading ? 'Processing...' : '📤 Issue Stock'}</button>
                     </div>
                 )}
 
                 {activeTab === 'wastage' && (
                     <div className="store-form">
                         <h3>Record Material Wastage</h3>
-                        
-                        <select 
-                            value={selectedMaterial || ''} 
-                            onChange={(e) => setSelectedMaterial(Number(e.target.value))}
-                        >
+                        <select value={selectedMaterial || ''} onChange={(e) => setSelectedMaterial(Number(e.target.value))}>
                             <option value="">-- Select Material --</option>
                             {materials.map(m => (
-                                <option key={m.id} value={m.id}>
-                                    {m.name} - Available: {stockLevels[m.id] || 0} {m.unitOfMeasurement || 'units'}
-                                </option>
+                                <option key={m.id} value={m.id}>{m.name} - Available: {stockLevels[m.id] || 0} {m.unitOfMeasurement || 'units'}</option>
                             ))}
                         </select>
                         
@@ -495,21 +393,9 @@ const StoreManagement = ({ projectId }) => {
                             </div>
                         )}
                         
-                        <input 
-                            type="number" 
-                            placeholder="Quantity Wasted" 
-                            value={quantity} 
-                            onChange={(e) => setQuantity(e.target.value)} 
-                        />
-                        <textarea 
-                            placeholder="Reason for wastage (e.g., damaged, broken, spoilage)" 
-                            value={reason} 
-                            onChange={(e) => setReason(e.target.value)} 
-                            rows="3"
-                        />
-                        <button type="button" onClick={handleRecordWastage} disabled={loading}>
-                            {loading ? 'Processing...' : '🗑️ Record Wastage'}
-                        </button>
+                        <input type="number" placeholder="Quantity Wasted" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                        <textarea placeholder="Reason for wastage (e.g., damaged, broken, spoilage)" value={reason} onChange={(e) => setReason(e.target.value)} rows="3" />
+                        <button onClick={handleRecordWastage} disabled={loading}>{loading ? 'Processing...' : '🗑️ Record Wastage'}</button>
                     </div>
                 )}
 
@@ -517,57 +403,27 @@ const StoreManagement = ({ projectId }) => {
                     <div className="inventory-list">
                         <h3>Current Inventory</h3>
                         <div className="inventory-stats">
-                            <div className="stat-card">
-                                <span>📊 Total Items</span>
-                                <strong>{materials.length}</strong>
-                            </div>
-                            <div className="stat-card">
-                                <span>✅ In Stock</span>
-                                <strong>{Object.values(stockLevels).filter(stock => stock > 0).length}</strong>
-                            </div>
-                            <div className="stat-card">
-                                <span>⚠️ Low Stock</span>
-                                <strong>{lowStockItems}</strong>
-                            </div>
+                            <div className="stat-card"><span>📊 Total Items</span><strong>{materials.length}</strong></div>
+                            <div className="stat-card"><span>✅ In Stock</span><strong>{Object.values(stockLevels).filter(stock => stock > 0).length}</strong></div>
+                            <div className="stat-card"><span>⚠️ Low Stock</span><strong>{lowStockItems}</strong></div>
                         </div>
                         
                         <table className="inventory-table">
-                            <thead>
-                                <tr>
-                                    <th>Material</th>
-                                    <th>Unit</th>
-                                    <th>Current Stock</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
+                            <thead><tr><th>Material</th><th>Unit</th><th>Current Stock</th><th>Status</th></tr></thead>
                             <tbody>
                                 {materials.map(material => {
                                     const stock = stockLevels[material.id] || 0;
                                     const reorderLevel = material.reorderLevel || 50;
-                                    let status = 'Out of Stock';
-                                    let statusClass = 'out';
-                                    
-                                    if (stock > reorderLevel * 2) {
-                                        status = 'Good Stock';
-                                        statusClass = 'good';
-                                    } else if (stock > reorderLevel) {
-                                        status = 'Medium Stock';
-                                        statusClass = 'medium';
-                                    } else if (stock > 0) {
-                                        status = 'Low Stock';
-                                        statusClass = 'low';
-                                    }
-                                    
+                                    let status = 'Out of Stock', statusClass = 'out';
+                                    if (stock > reorderLevel * 2) { status = 'Good Stock'; statusClass = 'good'; }
+                                    else if (stock > reorderLevel) { status = 'Medium Stock'; statusClass = 'medium'; }
+                                    else if (stock > 0) { status = 'Low Stock'; statusClass = 'low'; }
                                     return (
                                         <tr key={material.id}>
                                             <td>{material.name}</td>
                                             <td>{material.unitOfMeasurement || 'units'}</td>
                                             <td className={stock === 0 ? 'zero-stock' : ''}>{stock}</td>
-                                            <td>
-                                                <span className={`status-badge ${statusClass}`}>
-                                                    {status}
-                                                </span>
-                                            </td>
+                                            <td><span className={`status-badge ${statusClass}`}>{status}</span></td>
                                         </tr>
                                     );
                                 })}
