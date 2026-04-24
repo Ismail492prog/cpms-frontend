@@ -21,7 +21,7 @@ export const bankPaymentAPI = {
   getPendingPayments: () => 
     axiosInstance.get('/api/bank-payments/pending'),
   
-  // Delete bank payment - ADD THIS
+  // Delete bank payment
   deleteBankPayment: (paymentId) => 
     axiosInstance.delete(`/api/bank-payments/${paymentId}`),
 };
