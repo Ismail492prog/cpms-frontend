@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://cors-anywhere.herokuapp.com/https://cpms-backend-production.up.railway.app';
+const API_BASE_URL = 'https://cpms-backend-production.up.railway.app';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
