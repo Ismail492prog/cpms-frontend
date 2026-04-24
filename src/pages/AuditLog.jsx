@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+const API_BASE_URL = 'https://cpms-backend-production.up.railway.app';
+
 const AuditLog = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,7 @@ const AuditLog = () => {
   const fetchUserRole = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/auth/me', {
+      const response = await axios.get(`${API_BASE_URL}/api/auth/me`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const role = response.data.role || 'USER';
@@ -45,7 +47,7 @@ const AuditLog = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/audit-logs?page=${page}&size=20`, {
+      const response = await axios.get(`${API_BASE_URL}/api/audit-logs?page=${page}&size=20`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setLogs(response.data.content || []);
@@ -75,7 +77,7 @@ const AuditLog = () => {
   const exportLogs = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('const API_BASE_URL = https://cpms-backend-production.up.railway.app/api/audit-logs/export', {
+      const response = await axios.get(`${API_BASE_URL}/api/audit-logs/export`, {
         headers: { 'Authorization': `Bearer ${token}` },
         responseType: 'blob'
       });
@@ -106,8 +108,7 @@ const AuditLog = () => {
   };
 
   const applyFilters = () => {
-    // Apply date filters
-    let url = `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/audit-logs?page=0&size=20`;
+    let url = `${API_BASE_URL}/api/audit-logs?page=0&size=20`;
     if (startDate) {
       url += `&startDate=${startDate}`;
     }
