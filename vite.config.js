@@ -5,18 +5,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: true,
-    proxy: {
-      '/api': {
-        target: 'https://cpms-backend-production.up.railway.app',
-        changeOrigin: true,
-        secure: false
-      }
-    }
+    host: true
   },
   build: {
     outDir: 'dist',
     sourcemap: false,
-    chunkSizeWarningLimit: 1000
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]'
+      }
+    }
   }
 })
