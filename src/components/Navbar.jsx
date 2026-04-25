@@ -44,7 +44,6 @@ const Navbar = () => {
     return 'U';
   };
 
-  // Close mobile menu when navigating
   const handleNavigation = (path) => {
     navigate(path);
     setMobileMenuOpen(false);
@@ -53,6 +52,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
+        {/* Left side - Brand */}
         <div className="nav-brand" onClick={() => handleNavigation('/dashboard')}>
           <h1>🏗️ CPMS</h1>
           <span>Construction Project Management</span>
@@ -67,7 +67,8 @@ const Navbar = () => {
           ☰
         </button>
         
-        <div className={`nav-menu ${mobileMenuOpen ? 'active' : ''}`}>
+        {/* Center - Navigation Links */}
+        <div className={`nav-center ${mobileMenuOpen ? 'active' : ''}`}>
           {user && (
             <div className="nav-links">
               <button className="nav-link" onClick={() => handleNavigation('/dashboard')}>
@@ -76,41 +77,44 @@ const Navbar = () => {
               
               {isAdminOrManager && (
                 <button className="nav-link" onClick={() => handleNavigation('/audit-logs')}>
-                  📋 Audit Log
+                  Audit Log
                 </button>
               )}
               
               <button className="nav-link" onClick={() => handleNavigation('/alerts')}>
-                🔔 Alerts
+                Alerts
               </button>
             </div>
           )}
-          
-          <div className="nav-user">
-            {user ? (
-              <>
+        </div>
+        
+        {/* Right side - User info & actions */}
+        <div className={`nav-right ${mobileMenuOpen ? 'active' : ''}`}>
+          {user ? (
+            <>
+              <div className="user-info">
                 <span className="user-name">Welcome, {user?.fullName}</span>
                 {userRole && <span className="user-role">({userRole})</span>}
-                
-                <ThemeToggle />
-                <NotificationBell />
-                
-                <Link to="/profile" className="profile-link" onClick={() => setMobileMenuOpen(false)}>
-                  <div className="profile-avatar-small">
-                    {getInitial()}
-                  </div>
-                </Link>
-                
-                <button onClick={handleLogout} className="logout-btn">
-                  Logout
-                </button>
-              </>
-            ) : (
-              <button onClick={() => handleNavigation('/login')} className="login-btn">
-                Login
+              </div>
+              
+              <ThemeToggle />
+              <NotificationBell />
+              
+              <Link to="/profile" className="profile-link" onClick={() => setMobileMenuOpen(false)}>
+                <div className="profile-avatar-small">
+                  {getInitial()}
+                </div>
+              </Link>
+              
+              <button onClick={handleLogout} className="logout-btn">
+                Logout
               </button>
-            )}
-          </div>
+            </>
+          ) : (
+            <button onClick={() => handleNavigation('/login')} className="login-btn">
+              Login
+            </button>
+          )}
         </div>
       </div>
     </nav>
