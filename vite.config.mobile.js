@@ -10,15 +10,23 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    // Mobile optimization: smaller chunks
     rollupOptions: {
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-charts': ['recharts'],
-          'vendor-utils': ['axios', 'date-fns', 'react-hot-toast', 'react-icons']
+          'vendor-utils': ['axios', 'date-fns', 'react-hot-toast', 'react-icons', 'react-hook-form']
         }
       }
     },
-    chunkSizeWarningLimit: 500
+    chunkSizeWarningLimit: 300,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
   }
 })
