@@ -4673,5 +4673,227 @@ input:focus, select:focus, textarea:focus {
         border-bottom: none;
     }
 }
+
+/* ==================== MOBILE-FIRST MEDIA QUERIES ==================== */
+
+/* Base styles (Mobile first - screens under 768px) */
+html {
+  font-size: 16px; /* 1rem = 16px base */
+}
+
+body {
+  font-size: 1rem;
+}
+
+h1 { font-size: 1.8rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.125rem; }
+small, .small-text { font-size: 0.875rem; }
+
+/* Container */
+.container {
+  width: 100%;
+  padding: 0 1rem;
+}
+
+/* Grids - Mobile (1 column) */
+.projects-grid,
+.materials-grid,
+.suppliers-grid {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.stats-cards {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.charts-grid {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+/* Forms */
+.form-row {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+/* Buttons - Touch friendly */
+button,
+.btn-primary,
+.btn-secondary,
+.nav-link,
+.tab,
+.filter-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.75rem 1rem;
+}
+
+/* Tables */
+.audit-table-container,
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Hide sidebar on mobile - show hamburger instead */
+.dashboard-sidebar {
+  display: none;
+}
+
+/* Navbar mobile styles */
+.navbar {
+  padding: 0.5rem;
+}
+
+.nav-brand h1 {
+  font-size: 1.25rem;
+}
+
+.nav-brand span {
+  display: none;
+}
+
+/* ==================== TABLET (768px and up) ==================== */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+  
+  /* Grids - Tablet (2 columns) */
+  .projects-grid,
+  .materials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .charts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  /* Show sidebar on tablet */
+  .dashboard-sidebar {
+    display: block;
+    width: 240px;
+  }
+  
+  /* Navbar */
+  .nav-brand span {
+    display: inline;
+    font-size: 0.75rem;
+  }
+  
+  .navbar {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* ==================== DESKTOP (1024px and up) ==================== */
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* Grids - Desktop (3-4 columns) */
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .materials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .dashboard-sidebar {
+    width: 280px;
+  }
+  
+  .nav-brand h1 {
+    font-size: 1.5rem;
+  }
+  
+  .nav-brand span {
+    font-size: 0.875rem;
+  }
+}
+
+/* ==================== LARGE DESKTOP (1440px and up) ==================== */
+@media (min-width: 1440px) {
+  .projects-grid,
+  .materials-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ==================== FONT SIZES IN REM (Responsive) ==================== */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px; /* Smaller base font on very small screens */
+  }
+  
+  body {
+    font-size: 0.9rem;
+  }
+  
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
+}
+
+/* ==================== IMAGES RESPONSIVE ==================== */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==================== CARDS ON MOBILE ==================== */
+@media (max-width: 768px) {
+  .project-card,
+  .material-card,
+  .supplier-card,
+  .alert-card {
+    padding: 1rem;
+  }
+  
+  .project-card h3,
+  .material-card h3 {
+    font-size: 1rem;
+  }
+}
+
+/* ==================== MODAL RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    margin: 1rem auto;
+    padding: 1rem;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .modal-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-buttons button {
+    width: 100%;
+  }
+}
 }
 
