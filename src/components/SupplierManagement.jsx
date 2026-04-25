@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import './SupplierManagement.css';
 
 const API_BASE_URL = 'https://cpms-backend-production.up.railway.app';
 
@@ -130,7 +131,7 @@ const SupplierManagement = () => {
             <div className="supplier-header">
                 <div>
                     <h2>🏭 Supplier Management</h2>
-                    <p>Manage material suppliers including hardware stores, manufacturers, and wholesalers</p>
+                    
                 </div>
                 <button className="btn-primary" onClick={() => setShowAddModal(true)}>
                     + Add Supplier

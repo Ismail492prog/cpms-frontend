@@ -1,0 +1,359 @@
+/* ==================== SUPPLIER MANAGEMENT STYLES ==================== */
+
+.supplier-management {
+    padding: 24px;
+    background: var(--bg-primary, #f5f7fb);
+    min-height: calc(100vh - 70px);
+}
+
+/* Header Section */
+.supplier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.supplier-header h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.75rem;
+    color: var(--text-primary, #1a1a2e);
+}
+
+.supplier-header p {
+    margin: 0;
+    color: var(--text-secondary, #6c757d);
+    font-size: 0.9rem;
+}
+
+/* Filter Buttons */
+.supplier-filters {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-color, #e9ecef);
+    padding-bottom: 15px;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary, #6c757d);
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.filter-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+/* Suppliers Grid */
+.suppliers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+/* Supplier Card */
+.supplier-card {
+    background: var(--card-bg, white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color, #e9ecef);
+}
+
+.supplier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Header */
+.supplier-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.supplier-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.supplier-icon {
+    font-size: 28px;
+}
+
+.supplier-title h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary, #1a1a2e);
+}
+
+.delete-btn-small {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    padding: 4px 8px;
+}
+
+.delete-btn-small:hover {
+    opacity: 1;
+}
+
+/* Category Badge */
+.supplier-category-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #e8f4f8;
+    color: #1e88e5;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Supplier Details */
+.supplier-location,
+.supplier-contact,
+.supplier-phone,
+.supplier-email,
+.supplier-terms {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #6c757d);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border-light, #f0f0f0);
+}
+
+.supplier-location:before,
+.supplier-contact:before,
+.supplier-phone:before,
+.supplier-email:before,
+.supplier-terms:before {
+    min-width: 80px;
+    font-weight: 500;
+    color: var(--text-primary, #333);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--card-bg, white);
+    border-radius: 16px;
+}
+
+.empty-state span {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    margin: 0 0 10px;
+    color: var(--text-primary, #1a1a2e);
+}
+
+.empty-state p {
+    color: var(--text-secondary, #6c757d);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--card-bg, white);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color, #e9ecef);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-primary, #333);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #5a67d8;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 12px;
+    background: #e9ecef;
+    color: #495057;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #dee2e6;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: 60px;
+    font-size: 1.1rem;
+    color: var(--text-secondary, #6c757d);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .supplier-management {
+        padding: 16px;
+    }
+    
+    .supplier-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .supplier-filters {
+        justify-content: center;
+    }
+    
+    .suppliers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+    
+    .supplier-card {
+        padding: 16px;
+    }
+    
+    .supplier-title h3 {
+        font-size: 1rem;
+    }
+}
