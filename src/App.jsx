@@ -15,8 +15,6 @@ import AdminBankPayments from './pages/AdminBankPayments';
 import AuditLog from './pages/AuditLog';
 import Alerts from './pages/Alerts';
 import Profile from './pages/Profile';
-import { HashRouter } from 'react-router-dom';
-
 
 function App() {
   return (
@@ -29,57 +27,37 @@ function App() {
           <Route path="/test-modal" element={<SimpleModalTest />} />           
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />       
-
           <Route path="/profile" element={
             <PrivateRoute>
-           <Profile />
+              <Profile />
             </PrivateRoute>
           } />
-
           <Route path="/admin/payments" element={
-          <PrivateRoute>
-          <AdminBankPayments />
-          </PrivateRoute>
-           } />  
-
-          
-
-
+            <PrivateRoute>
+              <AdminBankPayments />
+            </PrivateRoute>
+          } />
           <Route path="/alerts" element={
             <PrivateRoute>
-            <Alerts />
+              <Alerts />
             </PrivateRoute>
-           } />          
-
-
+          } />
           <Route path="/audit-logs" element={
-          <PrivateRoute>
-           <AuditLog />
-          </PrivateRoute>
-          } />     
-
-              
-          
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/projects/:id"
-            element={
-              <PrivateRoute>
-                <ProjectDetails />
-              </PrivateRoute>
-            }
-
-            
-          />
+            <PrivateRoute>
+              <AuditLog />
+            </PrivateRoute>
+          } />
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } />
+          <Route path="/projects/:id" element={
+            <PrivateRoute>
+              <ProjectDetails />
+            </PrivateRoute>
+          } />
           <Route path="/" element={<Navigate to="/dashboard" />} />
-
         </Routes>
       </Router>
     </AuthProvider>
