@@ -12,10 +12,20 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-charts': ['recharts'],
-          'vendor-utils': ['axios', 'date-fns', 'react-hot-toast', 'react-icons']
+        manualChunks(id) {
+          // React vendor
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'vendor-react';
+            }
+            if (id.includes('recharts')) {
+              return 'vendor-charts';
+            }
+            if (id.includes('axios') || id.includes('date-fns') || id.includes('react-hot-toast') || id.includes('react-icons')) {
+              return 'vendor-utils';
+            }
+            return 'vendor';
+          }
         }
       }
     },
