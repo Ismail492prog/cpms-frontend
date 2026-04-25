@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const API_BASE_URL = 'https://cpms-backend-production.up.railway.app';
+
 const SupplierManagement = () => {
     const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,9 +26,14 @@ const SupplierManagement = () => {
 
     const fetchSuppliers = useCallback(async () => {
         try {
-            const url = filterCategory === 'all' 
-                ? 'https://cpms-backend-production.up.railway.app/api/suppliers'
-                : `const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/suppliers/category/${filterCategory}`;
+            // ✅ FIXED: Correct URL construction
+            let url;
+            if (filterCategory === 'all') {
+                url = `${API_BASE_URL}/api/suppliers`;
+            } else {
+                url = `${API_BASE_URL}/api/suppliers/category/${filterCategory}`;
+            }
+            
             const response = await axios.get(url, {
                 headers: getAuthHeader()
             });
@@ -42,10 +49,8 @@ const SupplierManagement = () => {
     }, [filterCategory, getAuthHeader]);
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchSuppliers();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterCategory]);
+    }, [fetchSuppliers]);
 
     const handleInputChange = (e) => {
         setFormData({
@@ -75,7 +80,7 @@ const SupplierManagement = () => {
         }
 
         try {
-            const response = await axios.post('https://cpms-backend-production.up.railway.app/api/suppliers', formData, {
+            const response = await axios.post(`${API_BASE_URL}/api/suppliers`, formData, {
                 headers: getAuthHeader()
             });
             if (response.data.success) {
@@ -93,7 +98,7 @@ const SupplierManagement = () => {
     const handleDeleteSupplier = async (id, name) => {
         if (window.confirm(`Are you sure you want to delete "${name}"?`)) {
             try {
-                const response = await axios.delete(`const API_BASE_URL = 'https://cpms-backend-production.up.railway.app/api/suppliers/${id}`, {
+                const response = await axios.delete(`${API_BASE_URL}/api/suppliers/${id}`, {
                     headers: getAuthHeader()
                 });
                 if (response.data.success) {
