@@ -17,8 +17,9 @@ import Alerts from './pages/Alerts';
 import Profile from './pages/Profile';
 
 function App() {
-  // Check if user is authenticated
-  const isAuthenticated = !!localStorage.getItem('token');
+  // Simple check - if token exists, go to dashboard, else login
+  const token = localStorage.getItem('token');
+  const startPath = token ? '/dashboard' : '/login';
 
   return (
     <AuthProvider>
@@ -60,15 +61,7 @@ function App() {
               <ProjectDetails />
             </PrivateRoute>
           } />
-          {/* Root route - redirect based on authentication status */}
-          <Route 
-            path="/" 
-            element={
-              isAuthenticated ? 
-                <Navigate to="/dashboard" /> : 
-                <Navigate to="/login" />
-            } 
-          />
+          <Route path="/" element={<Navigate to={startPath} replace />} />
         </Routes>
       </Router>
     </AuthProvider>
