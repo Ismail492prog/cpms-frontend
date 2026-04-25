@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Test</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+        button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>📱 CPMS Mobile Test</h1>
+    <p id="status">Testing connection...</p>
+    <button onclick="testBackend()">Test Backend Connection</button>
+    <button onclick="goToApp()">Go to App</button>
+
+    <script>
+        const testBackend = async () => {
+            const status = document.getElementById('status');
+            status.textContent = 'Testing backend...';
+            try {
+                const response = await fetch('https://cpms-backend-production.up.railway.app/api/auth/me');
+                if (response.ok || response.status === 401) {
+                    status.innerHTML = '<span class="success">✅ Backend is reachable!</span>';
+                } else {
+                    status.innerHTML = '<span class="error">❌ Backend returned status: ' + response.status + '</span>';
+                }
+            } catch (err) {
+                status.innerHTML = '<span class="error">❌ Cannot reach backend: ' + err.message + '</span>';
+            }
+        };
+        
+        const goToApp = () => {
+            window.location.href = '/';
+        };
+        
+        testBackend();
+    </script>
+</body>
+</html>

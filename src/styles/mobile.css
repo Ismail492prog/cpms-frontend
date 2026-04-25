@@ -1,0 +1,55 @@
+/* Mobile-specific fixes */
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* iOS height fix */
+@supports (-webkit-touch-callout: none) {
+  #root {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Mobile font sizes */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
+  
+  /* Better touch targets */
+  button, 
+  a,
+  [role="button"],
+  .tab,
+  .nav-link,
+  .filter-btn {
+    min-height: 44px;
+    min-width: 44px;
+    cursor: pointer;
+  }
+}
+
+/* Prevent zoom on input focus */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* Smooth scrolling for modals */
+.modal-content {
+  overflow-y: auto;
+}
