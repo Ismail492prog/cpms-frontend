@@ -17,6 +17,9 @@ import Alerts from './pages/Alerts';
 import Profile from './pages/Profile';
 
 function App() {
+  // Check if user is authenticated
+  const isAuthenticated = !!localStorage.getItem('token');
+
   return (
     <AuthProvider>
       <Router>
@@ -57,7 +60,15 @@ function App() {
               <ProjectDetails />
             </PrivateRoute>
           } />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          {/* Root route - redirect based on authentication status */}
+          <Route 
+            path="/" 
+            element={
+              isAuthenticated ? 
+                <Navigate to="/dashboard" /> : 
+                <Navigate to="/login" />
+            } 
+          />
         </Routes>
       </Router>
     </AuthProvider>
