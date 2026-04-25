@@ -9,6 +9,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState('USER');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchUserRole = async () => {
@@ -31,11 +32,11 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     navigate('/login');
+    setMobileMenuOpen(false);
   };
 
   const isAdminOrManager = userRole === 'ADMIN' || userRole === 'MANAGER';
 
-  // Get first letter of user's name for avatar
   const getInitial = () => {
     if (user?.fullName) {
       return user.fullName.charAt(0).toUpperCase();
@@ -43,59 +44,74 @@ const Navbar = () => {
     return 'U';
   };
 
+  // Close mobile menu when navigating
+  const handleNavigation = (path) => {
+    navigate(path);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <nav className="navbar">
-      <div className="nav-brand" onClick={() => navigate('/dashboard')}>
-        <h1>🏗️ CPMS</h1>
-        <span>Construction Project Management</span>
-      </div>
-      
-      {user && (
-        <div className="nav-links">
-          <button className="nav-link" onClick={() => navigate('/dashboard')}>
-            Dashboard
-          </button>
-          
-          {isAdminOrManager && (
-            <button className="nav-link" onClick={() => navigate('/audit-logs')}>
-              📋 Audit Log
-            </button>
+      <div className="navbar-container">
+        <div className="nav-brand" onClick={() => handleNavigation('/dashboard')}>
+          <h1>🏗️ CPMS</h1>
+          <span>Construction Project Management</span>
+        </div>
+        
+        {/* Mobile menu button */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+        
+        <div className={`nav-menu ${mobileMenuOpen ? 'active' : ''}`}>
+          {user && (
+            <div className="nav-links">
+              <button className="nav-link" onClick={() => handleNavigation('/dashboard')}>
+                Dashboard
+              </button>
+              
+              {isAdminOrManager && (
+                <button className="nav-link" onClick={() => handleNavigation('/audit-logs')}>
+                  📋 Audit Log
+                </button>
+              )}
+              
+              <button className="nav-link" onClick={() => handleNavigation('/alerts')}>
+                🔔 Alerts
+              </button>
+            </div>
           )}
           
-          <button className="nav-link" onClick={() => navigate('/alerts')}>
-            🔔 Alerts
-          </button>
+          <div className="nav-user">
+            {user ? (
+              <>
+                <span className="user-name">Welcome, {user?.fullName}</span>
+                {userRole && <span className="user-role">({userRole})</span>}
+                
+                <ThemeToggle />
+                <NotificationBell />
+                
+                <Link to="/profile" className="profile-link" onClick={() => setMobileMenuOpen(false)}>
+                  <div className="profile-avatar-small">
+                    {getInitial()}
+                  </div>
+                </Link>
+                
+                <button onClick={handleLogout} className="logout-btn">
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button onClick={() => handleNavigation('/login')} className="login-btn">
+                Login
+              </button>
+            )}
+          </div>
         </div>
-      )}
-      
-      <div className="nav-user">
-        {user ? (
-          <>
-            <span className="user-name">Welcome, {user?.fullName}</span>
-            {userRole && <span className="user-role">({userRole})</span>}
-            
-            {/* Theme Toggle */}
-            <ThemeToggle />
-            
-            {/* Notification Bell */}
-            <NotificationBell />
-            
-            {/* ✅ Profile Link - NEW */}
-            <Link to="/profile" className="profile-link">
-              <div className="profile-avatar-small">
-                {getInitial()}
-              </div>
-            </Link>
-            
-            <button onClick={handleLogout} className="logout-btn">
-              Logout
-            </button>
-          </>
-        ) : (
-          <button onClick={() => navigate('/login')} className="login-btn">
-            Login
-          </button>
-        )}
       </div>
     </nav>
   );

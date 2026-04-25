@@ -19,7 +19,6 @@ const AuditLog = () => {
   const [authorized, setAuthorized] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch current user role
   const fetchUserRole = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
@@ -202,40 +201,42 @@ const AuditLog = () => {
               <p>No audit logs found.</p>
             </div>
           ) : (
-            <table className="audit-table">
-              <thead>
-                <tr>
-                  <th>Date & Time</th>
-                  <th>User</th>
-                  <th>Action</th>
-                  <th>Entity</th>
-                  <th>Entity ID</th>
-                  <th>Details</th>
-                  <th>IP Address</th>
-                </tr>
-              </thead>
-              <tbody>
-                {logs.map((log) => (
-                  <tr key={log.id}>
-                    <td className="date-cell">
-                      {new Date(log.createdAt).toLocaleString()}
-                    </td>
-                    <td className="user-cell">
-                      <strong>{log.userName || 'System'}</strong>
-                      <br />
-                      <small>{log.userEmail || '-'}</small>
-                    </td>
-                    <td className="action-cell">{getActionBadge(log.action)}</td>
-                    <td className="entity-cell">{log.entityType}</td>
-                    <td className="entity-id-cell">{log.entityId || '-'}</td>
-                    <td className="details-cell" title={log.details}>
-                      {log.details?.length > 50 ? log.details.substring(0, 50) + '...' : log.details || '-'}
-                    </td>
-                    <td className="ip-cell"><code>{log.ipAddress || '-'}</code></td>
+            <div className="table-responsive">
+              <table className="audit-table">
+                <thead>
+                  <tr>
+                    <th>Date & Time</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Entity</th>
+                    <th>Entity ID</th>
+                    <th>Details</th>
+                    <th>IP Address</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {logs.map((log) => (
+                    <tr key={log.id}>
+                      <td className="date-cell" data-label="Date & Time">
+                        {new Date(log.createdAt).toLocaleString()}
+                      </td>
+                      <td className="user-cell" data-label="User">
+                        <strong>{log.userName || 'System'}</strong>
+                        <br />
+                        <small>{log.userEmail || '-'}</small>
+                      </td>
+                      <td className="action-cell" data-label="Action">{getActionBadge(log.action)}</td>
+                      <td className="entity-cell" data-label="Entity">{log.entityType}</td>
+                      <td className="entity-id-cell" data-label="Entity ID">{log.entityId || '-'}</td>
+                      <td className="details-cell" data-label="Details" title={log.details}>
+                        {log.details?.length > 50 ? log.details.substring(0, 50) + '...' : log.details || '-'}
+                      </td>
+                      <td className="ip-cell" data-label="IP Address"><code>{log.ipAddress || '-'}</code></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 

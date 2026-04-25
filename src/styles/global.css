@@ -3853,4 +3853,825 @@ input:focus, select:focus, textarea:focus {
         height: 32px;
         font-size: 14px;
     }
+
+    /* ==================== RESPONSIVE DESIGN ==================== */
+
+/* Mobile First Approach - Base styles for all devices */
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
 }
+
+/* Responsive Dashboard Layout */
+.dashboard-layout {
+    display: flex;
+    gap: 20px;
+    min-height: calc(100vh - 70px);
+    flex-wrap: wrap;
+}
+
+/* Sidebar - Desktop */
+.dashboard-sidebar {
+    width: 260px;
+    background: var(--bg-sidebar);
+    border-radius: 12px;
+    padding: 20px 0;
+    box-shadow: var(--card-shadow);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+/* Main Content */
+.dashboard-content {
+    flex: 1;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+/* Projects Grid - Responsive */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* Stats Cards */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Project Selector Grid */
+.project-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+/* Materials Grid */
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+/* Summary Cards */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Form Rows */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Tables - Make scrollable on mobile */
+.workers-table,
+.attendance-table,
+.inventory-table,
+.audit-table,
+.report-table,
+.expense-table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+}
+
+.workers-table table,
+.attendance-table table,
+.inventory-table table,
+.audit-table table,
+.report-table table,
+.expense-table table {
+    width: 100%;
+    min-width: 600px;
+}
+
+/* ==================== TABLET RESPONSIVE (768px - 1024px) ==================== */
+@media screen and (max-width: 1024px) {
+    .dashboard-sidebar {
+        width: 220px;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .materials-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+/* ==================== MOBILE RESPONSIVE (Under 768px) ==================== */
+@media screen and (max-width: 768px) {
+    /* Layout */
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    
+    .dashboard-sidebar {
+        width: 100%;
+        position: static;
+        padding: 10px 0;
+    }
+    
+    .sidebar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .sidebar-nav-item {
+        width: auto;
+        padding: 10px 16px;
+        border-radius: 25px;
+    }
+    
+    .sidebar-nav-item .nav-text {
+        font-size: 14px;
+    }
+    
+    /* Header */
+    .dashboard-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    /* Cards */
+    .stats-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .materials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .project-selector-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Forms */
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    /* Tables */
+    .workers-table,
+    .attendance-table,
+    .inventory-table,
+    .audit-table,
+    .report-table,
+    .expense-table {
+        overflow-x: auto;
+        
+    }
+    
+    /* Buttons */
+    .profile-actions,
+    .header-buttons,
+    .project-actions,
+    .material-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .profile-actions button,
+    .header-buttons button,
+    .project-actions button,
+    .material-actions button {
+        width: auto;
+        min-width: 100px;
+    }
+    
+    /* Navbar */
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .nav-brand {
+        text-align: center;
+    }
+    
+    .nav-brand h1 {
+        font-size: 20px;
+    }
+    
+    .nav-brand span {
+        font-size: 10px;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .nav-link {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    
+    .nav-user {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .user-name,
+    .user-role {
+        font-size: 12px;
+    }
+    
+    /* Store Management Tabs */
+    .store-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .tab {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    
+    /* Worker Management Tabs */
+    .worker-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    /* Attendance Stats */
+    .attendance-stats {
+        flex-direction: column;
+    }
+    
+    /* Project Info Grid */
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .project-info-card .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Expense Tabs */
+    .expense-tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .expense-tab {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    /* Inventory Stats */
+    .inventory-stats {
+        flex-direction: column;
+    }
+    
+    /* Filter Section */
+    .audit-filters {
+        flex-direction: column;
+    }
+    
+    .date-filters {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .date-filters input,
+    .date-filters button {
+        width: 100%;
+    }
+    
+    .filter-input {
+        width: 100%;
+    }
+    
+    /* Supplier Filters */
+    .supplier-filters {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    /* Store Selector */
+    .store-selector,
+    .worker-selector {
+        padding: 15px;
+    }
+    
+    .selector-header {
+        text-align: center;
+    }
+    
+    .selected-project-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .change-project-btn {
+        margin-left: 0;
+    }
+    
+    /* Notifications */
+    .notification-dropdown {
+        position: fixed;
+        top: 60px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-width: none;
+    }
+    
+    /* Modal */
+    .modal-overlay {
+        padding: 10px;
+    }
+    
+    .modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    /* Charts */
+    .chart-card {
+        padding: 15px;
+    }
+    
+    .recharts-wrapper {
+        font-size: 10px;
+    }
+    
+    /* Pagination */
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .pagination-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+/* ==================== SMALL MOBILE (Under 480px) ==================== */
+@media screen and (max-width: 480px) {
+    /* Font sizes */
+    h1, .dashboard-header h2, .profile-title h1 {
+        font-size: 20px;
+    }
+    
+    h2 {
+        font-size: 18px;
+    }
+    
+    h3 {
+        font-size: 16px;
+    }
+    
+    /* Cards */
+    .project-card,
+    .material-card,
+    .supplier-card,
+    .alert-card {
+        padding: 15px;
+    }
+    
+    .project-header h3,
+    .material-header h3,
+    .supplier-title h3 {
+        font-size: 16px;
+    }
+    
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary,
+    .btn-small,
+    .btn-checkin,
+    .btn-checkout {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    /* Form inputs */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 8px;
+        font-size: 14px;
+    }
+    
+    /* Sidebar navigation */
+    .sidebar-nav-item {
+        padding: 6px 12px;
+    }
+    
+    .nav-icon {
+        font-size: 16px;
+    }
+    
+    .nav-text {
+        font-size: 12px;
+    }
+    
+    /* Stat cards */
+    .stat-number,
+    .summary-value {
+        font-size: 20px;
+    }
+    
+    /* Progress bar percentage */
+    .percentage {
+        font-size: 12px;
+    }
+}
+
+/* ==================== TABLES RESPONSIVE ==================== */
+@media screen and (max-width: 768px) {
+    /* Make tables scrollable */
+    .table-container {
+        overflow-x: auto;
+        
+    }
+    
+    /* Or convert tables to cards on mobile */
+    .workers-table tbody tr,
+    .attendance-table tbody tr,
+    .inventory-table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+    }
+    
+    .workers-table td,
+    .attendance-table td,
+    .inventory-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--border-light);
+    }
+    
+    .workers-table td:before,
+    .attendance-table td:before,
+    .inventory-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 10px;
+    }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+    .navbar,
+    .dashboard-sidebar,
+    .btn-primary,
+    .btn-secondary,
+    .profile-actions,
+    .project-actions,
+    .pagination,
+    .modal-overlay {
+        display: none !important;
+    }
+    
+    .dashboard-layout {
+        display: block;
+    }
+    
+    .dashboard-content {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+/* ==================== RESPONSIVE NAVBAR ==================== */
+
+/* Navbar Container */
+.navbar {
+    background: var(--navbar-bg);
+    color: var(--navbar-text);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Brand */
+.nav-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.nav-brand h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.nav-brand span {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--navbar-text);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 8px;
+}
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Nav Links */
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: var(--navbar-text);
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Nav User Section */
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.user-role {
+    font-size: 12px;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+/* Logout/Login Buttons */
+.logout-btn, .login-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: var(--navbar-text);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.logout-btn:hover, .login-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Profile Avatar */
+.profile-link {
+    text-decoration: none;
+}
+
+.profile-avatar-small {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.profile-avatar-small:hover {
+    transform: scale(1.05);
+}
+
+/* ==================== RESPONSIVE BREAKPOINTS ==================== */
+
+/* Tablet and Mobile */
+@media screen and (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: calc(100vh - 60px);
+        background: var(--bg-sidebar);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        gap: 20px;
+        overflow-y: auto;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 5px;
+    }
+    
+    .nav-link {
+        width: 100%;
+        text-align: left;
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    .nav-user {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+        align-items: flex-start;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .user-name, .user-role {
+        font-size: 14px;
+    }
+    
+    .logout-btn, .login-btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .profile-avatar-small {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .navbar-container {
+        padding: 10px 16px;
+    }
+    
+    .nav-brand h1 {
+        font-size: 18px;
+    }
+    
+    .nav-brand span {
+        font-size: 10px;
+    }
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+    .nav-brand span {
+        display: none;
+    }
+    
+    .nav-menu {
+        width: 85%;
+    }
+    
+    .nav-brand h1 {
+        font-size: 20px;
+    }
+}
+/* Responsive Table */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* Mobile view - convert table to cards */
+@media screen and (max-width: 768px) {
+    .audit-table thead {
+        display: none;
+    }
+    
+    .audit-table tbody tr {
+        display: block;
+        margin-bottom: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px;
+    }
+    
+    .audit-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--border-light);
+        text-align: right;
+    }
+    
+    .audit-table tbody td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 15px;
+        text-align: left;
+        flex: 1;
+    }
+    
+    .audit-table tbody td:last-child {
+        border-bottom: none;
+    }
+}
+}
+
