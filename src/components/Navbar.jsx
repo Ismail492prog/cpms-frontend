@@ -3,7 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import NotificationBell from './NotificationBell';
-import ThemeToggle from './ThemeToggle'; 
+import ThemeToggle from './ThemeToggle';
+import './Navbar.css'; 
 
 const Navbar = () => {
   const { user, logout } = useAuth();
